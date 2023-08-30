@@ -20,7 +20,7 @@ fid = fopen(filename,'r') ;
 assert(fid~=-1,'Error: Cannot open pseudopotential file %s',filename);
 
 textscan(fid,'%s',1,'delimiter','\n') ;
-fscanf(fid,'%s',1);
+Zatom = fscanf(fid,'%s',1);
 Z = fscanf(fid,'%f',1);
 textscan(fid,'%s',1,'delimiter','\n');
 A = textscan(fid,'%f %f %f %f %f %f') ;
@@ -151,7 +151,7 @@ end
 
 r_grid_vloc = r;
 r_grid_rho = r;
-
+S.Atm(ityp).Zatom = Zatom;
 S.Atm(ityp).Z = Z;
 S.Atm(ityp).Vloc = Vloc;
 S.Atm(ityp).r_grid_vloc = r_grid_vloc;

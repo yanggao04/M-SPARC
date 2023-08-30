@@ -343,8 +343,11 @@ if S.cell_typ == 2
 end
 
 % Brillouin-Zone Sampling
-S = Generate_kpts(S);
-
+if S.BandStr_Plot_Flag == 0
+    S = Generate_kpts(S);
+elseif S.BandStr_Plot_Flag == 1
+   S = Generate_band(S);
+end
 % check spin-orbit coupling
 for ityp = 1:S.n_typ
     if S.Atm(ityp).pspsoc == 1
@@ -983,6 +986,43 @@ end
 end
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function S = Generate_band(S)
+    S.tnkpt = S.kpt_line_num*S.kpt_per_line;
+    S.wkpt = ones(S.tnkpt,1);
+    vol = S.L1*S.L2*S.L3*S.Jacb;
+    a1 = S.lat_vec(1,:)*S.latvec_scale_x;
+    a2 = S.lat_vec(2,:)*S.latvec_scale_y;
+    a3 = S.lat_vec(3,:)*S.latvec_scale_z;
+    b1 = (2.0*pi/vol).*cross(a2,a3);
+    b2 = (2.0*pi/vol).*cross(a3,a1);
+    b3 = (2.0*pi/vol).*cross(a1,a2);
+    disp("kred");
+    disp(S.kred);
+    for i = 0:S.kpt_line_num-1
+        start_ind = i*S.kpt_per_line;
+        end_ind = (i+1)*S.kpt_per_line-1;
+        S.kptgrid(start_ind+1,:) = S.kred(i*2+1,1)*b1 + S.kred(i*2+1,2)*b2 + S.kred(i*2+1,3)*b3;
+        S.kptgrid(end_ind+1,:) = S.kred(i*2+2,1)*b1 + S.kred(i*2+2,2)*b2 + S.kred(i*2+2,3)*b3;
+        S.outkpt(start_ind+1,:) = S.kred(i*2+1,:);
+        S.outkpt(end_ind+1,:) = S.kred(i*2+2,:);
+        alp = 1.0/(S.kpt_per_line-1.0);
+        diffvec = S.kred(i*2+2,:) - S.kred(i*2+1,:);
+        for j = start_ind+1:end_ind-1
+            tmpvc = S.kred(i*2+1,:) + (alp*(j-start_ind)).*diffvec;
+            S.outkpt(j+1,:) = tmpvc;
+            S.kptgrid(j+1,:) = tmpvc(1)*b1 + tmpvc(2)*b2 + tmpvc(3)*b3;
+        end
+
+
+    end
+  
+end
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function npl = Mesh2ChebDegree(h) 
 	% the relation between h and npl is fit with a cubic polynomial
@@ -1255,6 +1295,13 @@ S.ACEFlag = 1;
 S.EXXACEVal_state = 3;
 S.exx_downsampling = [1 1 1];
 S.ExxDivMethod = '';
+
+%%Band str plot
+S.BandStr_Plot_Flag = 0;
+S.dens_file_num = 0;
+S.kpt_line_num = 0;
+S.kpt_per_line = 0;
+
 end
 
 
@@ -1577,9 +1624,14 @@ fprintf(fileID,'Output printed to                  :  %s\n',outfname);
 %    fprintf(fileID,'Forces printed to                  :  %s\n',S.ForceFilename);
 %end 
 
-% if (S.PrintEigenFlag==1)
-%     fprintf(fileID,'Final eigenvalues printed to       :  %s\n',S.EigenFilename);
-% end
+EigenFilename = strcat(filename,'.eigen');
+if suffixNum > 0
+    EigenFilename = sprintf('%s.eigen_%02d',filename,suffixNum);
+end
+S.EigenFilename = EigenFilename;
+if (S.PrintEigenFlag==1)
+    fprintf(fileID,'Final eigenvalues printed to       :  %s\n',S.EigenFilename);
+end
 
 % if (S.MDFlag == 1 && S.PrintMDout == 1)
 %     fprintf(fileID,'MD output printed to               :  %s\n',S.MDFilename);
@@ -1613,6 +1665,33 @@ fprintf(fileID, 'Estimated total memory usage       :  %-.2f %s\n', mem_num, mem
 
 fclose(fileID);    
 
+
+% Write density file name
+if S.spin_typ == 0
+    densfname = strcat(filename,'.dens');
+    if suffixNum > 0
+        densfname = sprintf('%s.dens_%02d',filename,suffixNum);
+    end
+    S.densfname = densfname;
+else 
+    densfname = strcat(filename,'.dens');
+    if suffixNum > 0
+        densfname = sprintf('%s.dens_%02d',filename,suffixNum);
+    end
+    S.densfname = densfname;
+    
+    updensfname = strcat(filename,'.densUp');
+    if suffixNum > 0
+        updensfname = sprintf('%s.densUp_%02d',filename,suffixNum);
+    end
+    S.updensfname = updensfname;
+
+    downdensfname = strcat(filename,'.densDwn');
+    if suffixNum > 0
+        downdensfname = sprintf('%s.densDwn_%02d',filename,suffixNum);
+    end
+    S.downdensfname = downdensfname;
+end
 
 
 %-----------------------------------------
