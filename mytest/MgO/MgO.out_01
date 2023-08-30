@@ -1,0 +1,81 @@
+***************************************************************************
+*                      M-SPARC (version Aug 04, 2023)                     *
+*   Copyright (c) 2019 Material Physics & Mechanics Group, Georgia Tech   *
+*           Distributed under GNU General Public License 3 (GPL)          *
+*                Date: 22-Aug-2023  Start time: 10:46:31                  *
+***************************************************************************
+                           Input parameters                                
+***************************************************************************
+LATVEC_SCALE: 6.325100 6.325100 9.460000 
+LATVEC:
+1.000000000000000 0.000000000000000 0.000000000000000 
+-0.500000000000000 0.866000000000000 0.000000000000000 
+0.000000000000000 0.000000000000000 1.000000000000000 
+FD_GRID: 32 32 48
+FD_ORDER: 12
+BC: P P P
+KPOINT_GRID: 1 1 1
+KPOINT_SHIFT: 0 0 0
+ELEC_TEMP_TYPE: gaussian
+SMEARING: 0.000999993
+CHEB_DEGREE: 35
+NSTATES: 24
+EXCHANGE_CORRELATION: GGA_PBE
+CALC_STRESS: 0
+CALC_PRES: 0
+MAXIT_SCF: 1
+TOL_SCF: 1.00E-06
+TOL_POISSON: 1.00E-08
+TOL_LANCZOS: 1.00E-02
+TOL_PSEUDOCHARGE: 1.00E-09
+MIXING_VARIABLE: potential
+MIXING_PRECOND: none
+MIXING_PARAMETER: 0.30
+MIXING_HISTORY: 7
+PULAY_FREQUENCY: 1
+PULAY_RESTART: 0
+REFERENCE_CUTOFF: 0.50
+RHO_TRIGGER: 4
+FIX_RAND: 0
+PRINT_FORCES: 0
+PRINT_ATOMS: 0
+PRINT_EIGEN: 0
+PRINT_DENSITY: 0
+OUTPUT_FILE: C:\Users\ThinkPad\Desktop\band\M-SPARC\mytest\MgO\MgO.out_01
+***************************************************************************
+                                Cell                                       
+***************************************************************************
+Lattice vectors:
+6.325100000000000 0.000000000000000 0.000000000000000 
+-3.162550000000000 5.477536600000001 0.000000000000000 
+0.000000000000000 0.000000000000000 9.460000000000001 
+Volume :  3.2775084544E+02 (Bohr^3)
+Density :  2.4594292012E-01 (amu/Bohr^3),   2.7560051436E+00 (g/cc)
+***************************************************************************
+                             Initialization                                
+***************************************************************************
+Mesh spacing in x-direction        :  0.197659 (Bohr)
+Mesh spacing in y-direction        :  0.197655 (Bohr)
+Mesh spacing in z direction        :  0.197083 (Bohr)
+Number of symmetry adapted k-points:  1
+Output printed to                  :  C:\Users\ThinkPad\Desktop\band\M-SPARC\mytest\MgO\MgO.out_01
+Total number of atom types         :  2
+Total number of atoms              :  4
+Total number of electrons          :  32
+Atom type 1  (valence electrons)   :  Mg 10
+Pseudopotential                    :  ../../psps/12_Mg_10_1.9_2.0_pbe_v1.0.psp8
+lloc                               :  4
+Atomic mass                        :  24.305000000000000
+Pseudocharge radii of atom type 1  :  5.34 5.34 5.32
+Number of atoms of type 1          :  2
+Atom type 2  (valence electrons)   :  O 6
+Pseudopotential                    :  ../../psps/08_O_6_1.2_1.4_pbe_n_v1.0.psp8
+lloc                               :  4
+Atomic mass                        :  15.999000000000001
+Pseudocharge radii of atom type 2  :  7.91 7.91 7.88
+Number of atoms of type 2          :  2
+Estimated total memory usage       :  164.25 MB
+=====================================================================
+                    Self Consistent Field (SCF#1)                     
+=====================================================================
+Iteration     Free Energy (Ha/atom)   SCF Error        Timing (sec)

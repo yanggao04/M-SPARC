@@ -1,0 +1,110 @@
+***************************************************************************
+*                      M-SPARC (version Aug 04, 2023)                     *
+*   Copyright (c) 2019 Material Physics & Mechanics Group, Georgia Tech   *
+*           Distributed under GNU General Public License 3 (GPL)          *
+*                Date: 16-Aug-2023  Start time: 14:34:03                  *
+***************************************************************************
+                           Input parameters                                
+***************************************************************************
+LATVEC_SCALE: 1.000000 1.000000 1.000000 
+LATVEC:
+5.885906929795390 0.000000000000000 0.000000000000000 
+0.000000000000000 5.885906929795390 0.000000000000000 
+0.000000000000000 0.000000000000000 5.885906929795390 
+FD_GRID: 30 30 30
+FD_ORDER: 12
+BC: P P P
+KPOINT_GRID: 2 2 2
+KPOINT_SHIFT: 5.000000e-01 5.000000e-01 5.000000e-01
+ELEC_TEMP_TYPE: fermi-dirac
+SMEARING: 0.001000000
+CHEB_DEGREE: 35
+NSTATES: 21
+EXCHANGE_CORRELATION: GGA_PBE
+CALC_STRESS: 0
+CALC_PRES: 0
+MAXIT_SCF: 1
+TOL_SCF: 1.00E-06
+TOL_POISSON: 1.00E-08
+TOL_LANCZOS: 1.00E-02
+TOL_PSEUDOCHARGE: 1.00E-09
+MIXING_VARIABLE: density
+MIXING_PRECOND: none
+MIXING_PARAMETER: 0.30
+MIXING_HISTORY: 7
+PULAY_FREQUENCY: 1
+PULAY_RESTART: 0
+REFERENCE_CUTOFF: 0.50
+RHO_TRIGGER: 1
+FIX_RAND: 0
+PRINT_FORCES: 1
+PRINT_ATOMS: 1
+PRINT_EIGEN: 1
+PRINT_DENSITY: 1
+OUTPUT_FILE: C:\Users\ThinkPad\Desktop\band\M-SPARC\mytest\cds\CdS.out_03
+***************************************************************************
+                                Cell                                       
+***************************************************************************
+Lattice vectors:
+5.885906929795390 0.000000000000000 0.000000000000000 
+0.000000000000000 5.885906929795390 0.000000000000000 
+0.000000000000000 0.000000000000000 5.885906929795390 
+Volume :  2.0391077336E+02 (Bohr^3)
+Density :  7.0855255767E-01 (amu/Bohr^3),   7.9399500196E+00 (g/cc)
+***************************************************************************
+                             Initialization                                
+***************************************************************************
+Mesh spacing                       :  0.196197 (Bohr)
+Number of symmetry adapted k-points:  4
+Output printed to                  :  C:\Users\ThinkPad\Desktop\band\M-SPARC\mytest\cds\CdS.out_03
+Final eigenvalues printed to       :  C:\Users\ThinkPad\Desktop\band\M-SPARC\mytest\cds\CdS.eigen_03
+Total number of atom types         :  2
+Total number of atoms              :  2
+Total number of electrons          :  26
+Atom type 1  (valence electrons)   :  Cd 20
+Pseudopotential                    :  ../../psps/48_Cd_20_2.2_2.3_pbe_n_v1.0.psp8
+lloc                               :  4
+Atomic mass                        :  112.414000000000001
+Pseudocharge radii of atom type 1  :  6.87 6.87 6.87
+Number of atoms of type 1          :  1
+Atom type 2  (valence electrons)   :  S 6
+Pseudopotential                    :  ../../psps/16_S_6_1.8_1.9_pbe_n_v1.0.psp8
+lloc                               :  4
+Atomic mass                        :  32.067500000000003
+Pseudocharge radii of atom type 2  :  6.87 6.87 6.87
+Number of atoms of type 2          :  1
+Estimated total memory usage       :  179.21 MB
+=====================================================================
+                    Self Consistent Field (SCF#1)                     
+=====================================================================
+Iteration     Free Energy (Ha/atom)   SCF Error        Timing (sec)
+1            -4.7089557973E+01        1.136E+00        16.294
+Total number of SCF: 1     
+====================================================================
+                                Energy                              
+====================================================================
+Free energy per atom               : -4.7089557973E+01 (Ha/atom)
+Total free energy                  : -9.4179115947E+01 (Ha)
+Band structure energy              :  6.4703973608E+01 (Ha)
+Exchange correlation energy        : -2.5331887136E+01 (Ha)
+Self and correction energy         : -2.2141865764E+02 (Ha)
+Entropy*kb*T                       : -4.1440101185E-04 (Ha)
+Fermi level                        :  3.9513108274E+00 (Ha)
+Average force                      :  4.7914196145E+00 (Ha/Bohr)
+Maximum force                      :  4.7914196145E+00 (Ha/Bohr)
+Time for force calculation         :  1.343 (sec)
+***************************************************************************
+                               Timing info                                 
+***************************************************************************
+Total walltime                     :  19.623 sec
+___________________________________________________________________________
+
+***************************************************************************
+*             Material Physics & Mechanics Group, Georgia Tech            *
+*                       PI: Phanish Suryanarayana                         *
+*               List of contributors: See the documentation               *
+*         Citation: See README.md or the documentation for details        *
+*               Acknowledgements: U.S. DOE SC (DE-SC0019410)              *
+*      {Preliminary developments: U.S. NSF (1333500,1553212)}             *
+***************************************************************************
+                                                                           

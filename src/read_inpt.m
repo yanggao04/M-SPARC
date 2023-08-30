@@ -659,7 +659,40 @@ while(~feof(fid1))
 		C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
 		S.hyb_range_pbe = C_param{1};
 		textscan(fid1,'%s',1,'delimiter','\n','MultipleDelimsAsOne',0); % skip current line
-	else 
+    elseif (strcmp(str,'BAND_STRUC_PLOT:'))
+        C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
+		S.BandStr_Plot_Flag = C_param{1};
+		textscan(fid1,'%s',1,'delimiter','\n','MultipleDelimsAsOne',0); % skip current line
+    elseif (strcmp(str,'KPT_PER_LINE:'))
+        C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
+		S.kpt_per_line = C_param{1};
+		textscan(fid1,'%s',1,'delimiter','\n','MultipleDelimsAsOne',0); % skip current line
+    elseif (strcmp(str,'KPT_NUMLINES:'))
+        C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
+		S.kpt_line_num = C_param{1};
+		textscan(fid1,'%s',1,'delimiter','\n','MultipleDelimsAsOne',0); % skip current line
+        S.kred = zeros(S.kpt_line_num*2,3);
+        for i = 1:S.kpt_line_num*2
+
+            C_param = textscan(fid1,'%f %f %f',1,'delimiter',' ','MultipleDelimsAsOne',1);
+		    textscan(fid1,'%s',1,'delimiter','\n','MultipleDelimsAsOne',0); % skip current line
+		    S.kred(i,:) = cell2mat(C_param);
+        end
+    elseif (strcmp(str,'DENS_FILE_NAME:'))
+        C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
+		S.dens_file_num = C_param{1};
+        if S.dens_file_num == 3
+            C_param = textscan(fid1,'%s %s %s',1,'delimiter',' ','MultipleDelimsAsOne',1); 
+            S.indensfname = cell2mat(C_param{1});
+            S.inupdensfname = cell2mat(C_param{2});
+            S.indowndensfname = cell2mat(C_param{3});
+
+        elseif S.dens_file_num == 1
+            C_param = textscan(fid1,'%s',1,'delimiter',' ','MultipleDelimsAsOne',1); 
+            S.indensfname = cell2mat(C_param{1});
+        end
+		textscan(fid1,'%s',1,'delimiter','\n','MultipleDelimsAsOne',0); % skip current line
+    else 
 		error('\nCannot recognize input variable identifier: "%s"\n',str);
 		%fprintf('\nCannot recognize input flag in .inpt file: "%s"\n',str);
 	end
@@ -716,7 +749,20 @@ end
 if Flag_kptshift == 0
     S.kptshift = 0.5*(1-mod(S.nkpt,2));
 end
+
+if S.spin_typ == 0  && S.dens_file_num ~= 1 && S.BandStr_Plot_Flag == 1
+    error('Please provide 1 density file only for non-spin polarization system!\n');
+elseif S.spin_typ > 0 && S.dens_file_num ~= 3 && S.BandStr_Plot_Flag == 1
+    error('Please provide 3 density files for spin polarization system!\n');
 end
+disp('Band str');
+disp(S.BandStr_Plot_Flag);
+
+
+end
+
+
+
 
 function msparc_neglect_warning(str)
 	fprintf('Neglecting option "%s", which is not supported in M-SPARC\n',str);

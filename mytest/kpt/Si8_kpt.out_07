@@ -1,0 +1,74 @@
+***************************************************************************
+*                      M-SPARC (version Aug 04, 2023)                     *
+*   Copyright (c) 2019 Material Physics & Mechanics Group, Georgia Tech   *
+*           Distributed under GNU General Public License 3 (GPL)          *
+*                Date: 17-Aug-2023  Start time: 16:26:40                  *
+***************************************************************************
+                           Input parameters                                
+***************************************************************************
+LATVEC_SCALE: 10.320000 10.320000 10.320000 
+LATVEC:
+0.500000000000000 0.500000000000000 0.000000000000000 
+0.000000000000000 0.500000000000000 0.500000000000000 
+0.500000000000000 0.000000000000000 0.500000000000000 
+FD_GRID: 37 37 37
+FD_ORDER: 12
+BC: P P P
+KPOINT_GRID: 3 1 1
+KPOINT_SHIFT: 0 0 0
+ELEC_TEMP_TYPE: fermi-dirac
+SMEARING: 0.001000000
+CHEB_DEGREE: 35
+NSTATES: 10
+EXCHANGE_CORRELATION: GGA_PBE
+CALC_STRESS: 0
+CALC_PRES: 0
+MAXIT_SCF: 100
+TOL_SCF: 1.00E-05
+TOL_POISSON: 1.00E-07
+TOL_LANCZOS: 1.00E-02
+TOL_PSEUDOCHARGE: 1.00E-08
+MIXING_VARIABLE: potential
+MIXING_PRECOND: none
+MIXING_PARAMETER: 0.30
+MIXING_HISTORY: 7
+PULAY_FREQUENCY: 1
+PULAY_RESTART: 0
+REFERENCE_CUTOFF: 0.50
+RHO_TRIGGER: 4
+FIX_RAND: 0
+PRINT_FORCES: 0
+PRINT_ATOMS: 0
+PRINT_EIGEN: 1
+PRINT_DENSITY: 1
+OUTPUT_FILE: C:\Users\ThinkPad\Desktop\band\M-SPARC\mytest\kpt\Si8_kpt.out_07
+***************************************************************************
+                                Cell                                       
+***************************************************************************
+Lattice vectors:
+5.160000000000000 5.160000000000000 0.000000000000000 
+0.000000000000000 5.160000000000000 5.160000000000000 
+5.160000000000000 0.000000000000000 5.160000000000000 
+Volume :  2.7477619200E+02 (Bohr^3)
+Density :  2.0442455218E-01 (amu/Bohr^3),   2.2907555827E+00 (g/cc)
+***************************************************************************
+                             Initialization                                
+***************************************************************************
+Mesh spacing                       :  0.197225 (Bohr)
+Number of symmetry adapted k-points:  6
+Output printed to                  :  C:\Users\ThinkPad\Desktop\band\M-SPARC\mytest\kpt\Si8_kpt.out_07
+Final eigenvalues printed to       :  C:\Users\ThinkPad\Desktop\band\M-SPARC\mytest\kpt\Si8_kpt.eigen_07
+Total number of atom types         :  1
+Total number of atoms              :  2
+Total number of electrons          :  8
+Atom type 1  (valence electrons)   :  Si 4
+Pseudopotential                    :  ../../psps/14_Si_4_1.9_1.9_pbe_n_v1.0.psp8
+lloc                               :  4
+Atomic mass                        :  28.085500000000000
+Pseudocharge radii of atom type 1  :  7.69 7.69 7.69
+Number of atoms of type 1          :  2
+Estimated total memory usage       :  280.56 MB
+=====================================================================
+                    Self Consistent Field (SCF#1)                     
+=====================================================================
+Iteration     Free Energy (Ha/atom)   SCF Error        Timing (sec)

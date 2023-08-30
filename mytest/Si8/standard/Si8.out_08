@@ -1,0 +1,109 @@
+***************************************************************************
+*                      M-SPARC (version Aug 04, 2023)                     *
+*   Copyright (c) 2019 Material Physics & Mechanics Group, Georgia Tech   *
+*           Distributed under GNU General Public License 3 (GPL)          *
+*                Date: 15-Aug-2023  Start time: 11:09:03                  *
+***************************************************************************
+                           Input parameters                                
+***************************************************************************
+LATVEC_SCALE: 10.200000 10.200000 10.200000 
+LATVEC:
+1.000000000000000 0.000000000000000 0.000000000000000 
+-0.292371704722737 0.956304755963035 0.000000000000000 
+0.173648177666930 -0.110492654830881 0.978589640054184 
+FD_GRID: 25 25 25
+FD_ORDER: 12
+BC: P P P
+KPOINT_GRID: 1 1 1
+KPOINT_SHIFT: 0 0 0
+ELEC_TEMP_TYPE: fermi-dirac
+SMEARING: 0.000999993
+CHEB_DEGREE: 20
+NSTATES: 30
+EXCHANGE_CORRELATION: GGA_PBE
+CALC_STRESS: 1
+MAXIT_SCF: 1
+TOL_SCF: 1.00E-04
+TOL_POISSON: 1.00E-08
+TOL_LANCZOS: 1.00E-02
+TOL_PSEUDOCHARGE: 1.00E-08
+MIXING_VARIABLE: potential
+MIXING_PRECOND: none
+MIXING_PARAMETER: 0.30
+MIXING_HISTORY: 7
+PULAY_FREQUENCY: 1
+PULAY_RESTART: 0
+REFERENCE_CUTOFF: 0.50
+RHO_TRIGGER: 4
+FIX_RAND: 0
+PRINT_FORCES: 1
+PRINT_ATOMS: 0
+PRINT_EIGEN: 0
+PRINT_DENSITY: 1
+OUTPUT_FILE: C:\Users\ThinkPad\Desktop\band\M-SPARC\mytest\Si8\standard\Si8.out_08
+***************************************************************************
+                                Cell                                       
+***************************************************************************
+Lattice vectors:
+10.199999999999999 0.000000000000000 0.000000000000000 
+-2.982191388171917 9.754308510822955 0.000000000000000 
+1.771211412202686 -1.127025079274986 9.981614328552677 
+Volume :  9.9311020509E+02 (Bohr^3)
+Density :  2.2624276626E-01 (amu/Bohr^3),   2.5352477201E+00 (g/cc)
+***************************************************************************
+                             Initialization                                
+***************************************************************************
+Mesh spacing                       :  0.408000 (Bohr)
+Number of symmetry adapted k-points:  1
+Output printed to                  :  C:\Users\ThinkPad\Desktop\band\M-SPARC\mytest\Si8\standard\Si8.out_08
+Total number of atom types         :  1
+Total number of atoms              :  8
+Total number of electrons          :  32
+Atom type 1  (valence electrons)   :  Si 4
+Pseudopotential                    :  ../../../psps/14_Si_4_1.9_1.9_pbe_n_v1.0.psp8
+lloc                               :  4
+Atomic mass                        :  28.085500000000000
+Pseudocharge radii of atom type 1  :  7.75 7.75 7.75
+Number of atoms of type 1          :  8
+Estimated total memory usage       :  54.36 MB
+=====================================================================
+                    Self Consistent Field (SCF#1)                     
+=====================================================================
+Iteration     Free Energy (Ha/atom)   SCF Error        Timing (sec)
+1            -4.1567860875E+00        2.272E-02        5.087
+Total number of SCF: 1     
+====================================================================
+                                Energy                              
+====================================================================
+Free energy per atom               : -4.1567860875E+00 (Ha/atom)
+Total free energy                  : -3.3254288700E+01 (Ha)
+Band structure energy              : -6.5047163546E-01 (Ha)
+Exchange correlation energy        : -1.2449334304E+01 (Ha)
+Self and correction energy         : -5.7507604632E+01 (Ha)
+Entropy*kb*T                       : -1.1431550266E-04 (Ha)
+Fermi level                        :  1.7197684726E-01 (Ha)
+Average force                      :  1.2801285421E-01 (Ha/Bohr)
+Maximum force                      :  1.4184632466E-01 (Ha/Bohr)
+Time for force calculation         :  1.811 (sec)
+Stress (GPa):
+    -22.9408359040      -7.7143119930      -3.2991737157
+     -7.7143119930     -28.4902978512       4.9862884110
+     -3.2991737157       4.9862884110     -22.4096865407
+Pressure                           :  2.4613606765E+01 (GPa)
+Maximum stress                     :  2.8490297851E+01 (GPa)
+Time for stress calculation        :  8.115 (sec)
+***************************************************************************
+                               Timing info                                 
+***************************************************************************
+Total walltime                     :  19.874 sec
+___________________________________________________________________________
+
+***************************************************************************
+*             Material Physics & Mechanics Group, Georgia Tech            *
+*                       PI: Phanish Suryanarayana                         *
+*               List of contributors: See the documentation               *
+*         Citation: See README.md or the documentation for details        *
+*               Acknowledgements: U.S. DOE SC (DE-SC0019410)              *
+*      {Preliminary developments: U.S. NSF (1333500,1553212)}             *
+***************************************************************************
+                                                                           
