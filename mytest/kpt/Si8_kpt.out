@@ -1,0 +1,108 @@
+***************************************************************************
+*                      M-SPARC (version Aug 04, 2023)                     *
+*   Copyright (c) 2019 Material Physics & Mechanics Group, Georgia Tech   *
+*           Distributed under GNU General Public License 3 (GPL)          *
+*                Date: 17-Aug-2023  Start time: 15:29:43                  *
+***************************************************************************
+                           Input parameters                                
+***************************************************************************
+LATVEC_SCALE: 10.320000 10.320000 10.320000 
+LATVEC:
+0.500000000000000 0.500000000000000 0.000000000000000 
+0.000000000000000 0.500000000000000 0.500000000000000 
+0.500000000000000 0.000000000000000 0.500000000000000 
+FD_GRID: 37 37 37
+FD_ORDER: 12
+BC: P P P
+KPOINT_GRID: 2 2 2
+KPOINT_SHIFT: 5.000000e-01 5.000000e-01 5.000000e-01
+SPIN_TYP: 1
+ELEC_TEMP_TYPE: fermi-dirac
+SMEARING: 0.001000000
+CHEB_DEGREE: 35
+NSTATES: 10
+EXCHANGE_CORRELATION: GGA_PBE
+CALC_STRESS: 0
+CALC_PRES: 0
+MAXIT_SCF: 1
+TOL_SCF: 1.00E-06
+TOL_POISSON: 1.00E-08
+TOL_LANCZOS: 1.00E-02
+TOL_PSEUDOCHARGE: 1.00E-09
+MIXING_VARIABLE: potential
+MIXING_PRECOND: none
+MIXING_PRECOND_MAG: none
+MIXING_PARAMETER: 0.30
+MIXING_PARAMETER_MAG: 0.30
+MIXING_HISTORY: 7
+PULAY_FREQUENCY: 1
+PULAY_RESTART: 0
+REFERENCE_CUTOFF: 0.50
+RHO_TRIGGER: 1
+FIX_RAND: 0
+PRINT_FORCES: 0
+PRINT_ATOMS: 0
+PRINT_EIGEN: 1
+PRINT_DENSITY: 1
+OUTPUT_FILE: C:\Users\ThinkPad\Desktop\band\M-SPARC\mytest\kpt\Si8_kpt.out
+***************************************************************************
+                                Cell                                       
+***************************************************************************
+Lattice vectors:
+5.160000000000000 5.160000000000000 0.000000000000000 
+0.000000000000000 5.160000000000000 5.160000000000000 
+5.160000000000000 0.000000000000000 5.160000000000000 
+Volume :  2.7477619200E+02 (Bohr^3)
+Density :  2.0442455218E-01 (amu/Bohr^3),   2.2907555827E+00 (g/cc)
+***************************************************************************
+                             Initialization                                
+***************************************************************************
+Mesh spacing                       :  0.197225 (Bohr)
+Number of symmetry adapted k-points:  4
+Output printed to                  :  C:\Users\ThinkPad\Desktop\band\M-SPARC\mytest\kpt\Si8_kpt.out
+Final eigenvalues printed to       :  C:\Users\ThinkPad\Desktop\band\M-SPARC\mytest\kpt\Si8_kpt.eigen
+Total number of atom types         :  1
+Total number of atoms              :  2
+Total number of electrons          :  8
+Atom type 1  (valence electrons)   :  Si 4
+Pseudopotential                    :  ../../psps/14_Si_4_1.9_1.9_pbe_n_v1.0.psp8
+lloc                               :  4
+Atomic mass                        :  28.085500000000000
+Pseudocharge radii of atom type 1  :  8.09 8.09 8.09
+Number of atoms of type 1          :  2
+Estimated total memory usage       :  512.43 MB
+========================================================================================
+                            Self Consistent Field (SCF#1)                     
+========================================================================================
+Iteration     Free Energy (Ha/atom)    Magnetization     SCF Error        Timing (sec)
+1             1.6570990393E+01         1.8005E-03        2.407E-01        101.901
+Total number of SCF: 1     
+====================================================================
+                                Energy                              
+====================================================================
+Free energy per atom               :  1.6570990393E+01 (Ha/atom)
+Total free energy                  :  3.3141980785E+01 (Ha)
+Band structure energy              :  4.1322721505E+01 (Ha)
+Exchange correlation energy        : -2.9682777929E+00 (Ha)
+Self and correction energy         : -1.4376989383E+01 (Ha)
+Entropy*kb*T                       : -1.1927814406E-05 (Ha)
+Fermi level                        :  5.5825785853E+00 (Ha)
+Net Magnetization                  :  1.8004943277E-03 
+Average force                      :  8.9218079949E-02 (Ha/Bohr)
+Maximum force                      :  8.9218079949E-02 (Ha/Bohr)
+Time for force calculation         :  5.291 (sec)
+***************************************************************************
+                               Timing info                                 
+***************************************************************************
+Total walltime                     :  124.743 sec
+___________________________________________________________________________
+
+***************************************************************************
+*             Material Physics & Mechanics Group, Georgia Tech            *
+*                       PI: Phanish Suryanarayana                         *
+*               List of contributors: See the documentation               *
+*         Citation: See README.md or the documentation for details        *
+*               Acknowledgements: U.S. DOE SC (DE-SC0019410)              *
+*      {Preliminary developments: U.S. NSF (1333500,1553212)}             *
+***************************************************************************
+                                                                           

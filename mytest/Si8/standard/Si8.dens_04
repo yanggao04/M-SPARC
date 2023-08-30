@@ -1,0 +1,6 @@
+Electron density in Cube format printed by SPARC-X (Print time: )
+Cell length: 10.200000 10.200000 10.200000, boundary condition: P P P.
+    8    0.000000     0.000000     0.000000
+   25    0.408000     0.000000     0.000000
+   25   -0.119288     0.390172     0.000000
+   25    0.070848    -0.045081     0.399265
