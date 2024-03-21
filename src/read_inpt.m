@@ -679,19 +679,25 @@ while(~feof(fid1))
 		    S.kred(i,:) = cell2mat(C_param);
         end
     elseif (strcmp(str,'DENS_FILE_NAME:'))
-        C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
-		S.dens_file_num = C_param{1};
+        % C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
+		% S.dens_file_num = C_param{1};
+		
+		% not necessarily entering a number indicating num of files passed
+		inputFnames = [];
+		[nInputs, inputFnames] = readStringInputsFromFile(fid1, 3);
+        S.dens_file_num = nInputs;
+
         if S.dens_file_num == 3
-            C_param = textscan(fid1,'%s %s %s',1,'delimiter',' ','MultipleDelimsAsOne',1); 
-            S.indensfname = cell2mat(C_param{1});
-            S.inupdensfname = cell2mat(C_param{2});
-            S.indowndensfname = cell2mat(C_param{3});
+            S.indensfname = inputFnames(1);
+            S.inupdensfname = inputFnames(2);
+            S.indowndensfname = inputFnames(3);
 
         elseif S.dens_file_num == 1
-            C_param = textscan(fid1,'%s',1,'delimiter',' ','MultipleDelimsAsOne',1); 
-            S.indensfname = cell2mat(C_param{1});
+            S.indensfname = inputFnames(1);
+        else
+        	error('\n[FATAL] Density file names not provided properly! (Provide 1 file w/o spin or 3 files with spin)\n')
         end
-		textscan(fid1,'%s',1,'delimiter','\n','MultipleDelimsAsOne',0); % skip current line
+        inputFnames
     else 
 		error('\nCannot recognize input variable identifier: "%s"\n',str);
 		%fprintf('\nCannot recognize input flag in .inpt file: "%s"\n',str);
@@ -758,7 +764,6 @@ end
 disp('Band str');
 disp(S.BandStr_Plot_Flag);
 
-
 end
 
 
@@ -771,4 +776,46 @@ end
 function msparc_error_exit(str)
 	error('The option "%s" is not supported in M-SPARC\n',str);
 end
+
+function [inputArgc,inputArgv] = readStringInputsFromLine(line_input, max_nstr)
+	inputArgv = [];
+
+	inputArgc = 0;
+	
+	remain = line_input;
+
+	while (strlength(remain) ~= 0)
+        [token,remain] = strtok(remain);
+        if strlength(token) == 0
+            break;
+        end
+		if token(1) == '#'
+			break;
+		end
+		if inputArgc >= max_nstr
+			fprintf('\nError: Exceeded the maximum number of inputs (%d).\n', max_nstr);
+            inputArgc = -1
+			return;
+		end
+
+		inputArgv = [inputArgv,string(token)];
+		inputArgc = inputArgc+1;
+	end
+	return;
+end
+
+   
+
+function [inputArgc, inputArgv] = readStringInputsFromFile(input_fp, max_nstr)
+	line_input = fgets(input_fp);
+	if line_input == -1
+		fprintf('\nError reading line from file.\n');
+        inputArgc = -1;
+        return
+	end
+	[inputArgc, inputArgv] = readStringInputsFromLine(line_input, max_nstr);
+    return
+end
+
+
 

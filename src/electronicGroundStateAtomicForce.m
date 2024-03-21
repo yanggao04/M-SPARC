@@ -67,12 +67,15 @@ if S.BandStr_Plot_Flag == 1
     S.rhoTrigger = 10;
     S.MAXIT_SCF = 1;
 end
+
+
+[pfile, ~, ~] = fileparts(S.filename);
 if S.spin_typ == 0 && S.BandStr_Plot_Flag == 1
-    S = read_dens(S,1);
+    S.rho(:,1) = read_dens(fullfile(pfile,S.indensfname));
 elseif S.spin_typ > 0 && S.BandStr_Plot_Flag == 1
-    S = read_dens(S,1);
-    S = read_dens(S,2);
-    S = read_dens(S,3);
+    S.rho(:,1) = read_dens(fullfile(pfile,S.indensfname));
+    S.rho(:,2) = read_dens(fullfile(pfile,S.inupdensfname));
+    S.rho(:,3) = read_dens(fullfile(pfile,S.indowndensfname));
 end
 S = scf(S);
 	
@@ -526,72 +529,14 @@ else
 end
 end
 
-function S = read_dens(S,spintp)
-    [pfile, ~, ~] = fileparts(S.filename);
-    pfile = strcat(pfile,'\');
-    if spintp == 1
-        
-        fname = S.indensfname;
-        fname = strcat(pfile,fname);
-    elseif spintp == 2
-        fname = S.inupdensfname;
-        fname = strcat(pfile,fname);
-    elseif spintp == 3
-        fname = S.indowndensfname;
-        fname = strcat(pfile,fname);
-    end
-    disp(fname);
-    fid = fopen(fname,'r') ;
+function rho = read_dens(fname)
+	disp(fname)
+	fid = fopen(fname, 'r');
 
-    assert(fid~=-1,'Error: Cannot open dens file %s',fname);
+	assert(fid~=-1,'Error: Cannot open dens file %s',fname);
 
     textscan(fid,'%s',1,'delimiter','\n') ;
     textscan(fid,'%s',1,'delimiter','\n') ;
     natom = fscanf(fid,'%d',1);
-%     disp('natom:');
-%     disp(natom);
-%     disp('\n');
-    textscan(fid,'%s',1,'delimiter','\n') ;
-
-
-    sizex = fscanf(fid,'%d',1);
-%     disp('sizex:');
-%     disp(sizex);
-%     disp('\n');
-    textscan(fid,'%s',1,'delimiter','\n') ;
-
-
-    sizey = fscanf(fid,'%d',1);
-%     disp('sizey:');
-%     disp(sizey);
-%     disp('\n');
-    textscan(fid,'%s',1,'delimiter','\n') ;
-
-
-    sizez = fscanf(fid,'%d',1);
-%     disp('sizez:');
-%     disp(sizez);
-%     disp('\n');
-    textscan(fid,'%s',1,'delimiter','\n') ;
-
-
-
-    for i = 1:natom
-        textscan(fid,'%s',1,'delimiter','\n') ;
-    end
-
-    for i = 0:sizex-1
-        for j = 0:sizey-1
-            for k = 0:sizez-1
-                S.rho(i + j*sizex + k*sizex*sizey+1 , spintp) = fscanf(fid,'%f',1);
-            end
-        end
-
-    end
-
-    
-
-
-end
 
 
