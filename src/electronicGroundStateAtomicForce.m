@@ -538,5 +538,47 @@ function rho = read_dens(fname)
     textscan(fid,'%s',1,'delimiter','\n') ;
     textscan(fid,'%s',1,'delimiter','\n') ;
     natom = fscanf(fid,'%d',1);
+%     disp('natom:');
+%     disp(natom);
+%     disp('\n');
+    textscan(fid,'%s',1,'delimiter','\n') ;
 
 
+    sizex = fscanf(fid,'%d',1);
+%     disp('sizex:');
+%     disp(sizex);
+%     disp('\n');
+    textscan(fid,'%s',1,'delimiter','\n') ;
+
+
+    sizey = fscanf(fid,'%d',1);
+%     disp('sizey:');
+%     disp(sizey);
+%     disp('\n');
+    textscan(fid,'%s',1,'delimiter','\n') ;
+
+
+    sizez = fscanf(fid,'%d',1);
+%     disp('sizez:');
+%     disp(sizez);
+%     disp('\n');
+    textscan(fid,'%s',1,'delimiter','\n') ;
+
+
+
+    for i = 1:natom
+        textscan(fid,'%s',1,'delimiter','\n') ;
+    end
+
+    nd = sizex * sizey * sizez
+    rho = zeros(nd,1)
+
+    for i = 0:sizex-1
+        for j = 0:sizey-1
+            for k = 0:sizez-1
+                rho(i + j*sizex + k*sizex*sizey+1 , 1) = fscanf(fid,'%f',1);
+            end
+        end
+
+    end
+end
