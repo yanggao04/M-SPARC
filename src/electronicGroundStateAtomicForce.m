@@ -376,57 +376,9 @@ if S.spin_typ == 1
     atomMag = zeros(S.n_atm,1);
 elseif S.spin_typ == 2
     atomMag = zeros(S.n_atm,3);
-%%%%%%%%%%%%%%%Print to Eigen file%%%%%%%%%%%%%%%%%%
-function S = print_eig_file(S)
-if S.spin_typ == 0
-    EigenFilename = S.EigenFilename;
-	fileID = fopen(EigenFilename,'w');
-	if (fileID == -1) 
-		error('\n Cannot open file "%s"\n',EigenFilename);
-    end
-    fprintf(fileID, "Final eigenvalues (Ha) and occupation numbers\n");
-    fprintf(fileID, "\n");
-    [numkpt,~] = size(S.kptgrid);
-    for i=1:numkpt
-        if S.BandStr_Plot_Flag == 1
-            fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.outkpt(i,1),S.outkpt(i,2),S.outkpt(i,3));
-        elseif S.BandStr_Plot_Flag == 0
-            fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.kptgrid(i,1),S.kptgrid(i,2),S.kptgrid(i,3));
-        end
-        fprintf(fileID, "n           eigval                          occ\n");
-        [nband,~] = size(S.EigVal);
-        for j=1:nband
-            fprintf(fileID,"%-7d%20.12E %18.12f\n",j,S.EigVal(j,i),S.occ(j,i));
-        end
-        fprintf(fileID, "\n");
-    end
-else
-    EigenFilename = S.EigenFilename;
-	fileID = fopen(EigenFilename,'w');
-	if (fileID == -1) 
-		error('\n Cannot open file "%s"\n',EigenFilename);
-    end
-    fprintf(fileID, "Final eigenvalues (Ha) and occupation numbers\n");
-    fprintf(fileID, "\n");
-    [numkpt,~] = size(S.kptgrid);
-    for i=1:numkpt
-        if S.BandStr_Plot_Flag == 1
-            fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.outkpt(i,1),S.outkpt(i,2),S.outkpt(i,3));
-        elseif S.BandStr_Plot_Flag == 0
-            fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.kptgrid(i,1),S.kptgrid(i,2),S.kptgrid(i,3));
-        end
-        fprintf(fileID, "            Spin-up                                                      Spin-down\n");
-        fprintf(fileID, "n           eigval                          occ                          eigval                      occ\n");
-        [nband,~] = size(S.EigVal);
-        nband = floor(nband/2);
-        for j=1:nband
-            fprintf(fileID,"%-7d%20.12E %18.12f %20.12E %18.12f\n",j,S.EigVal(j,i),S.occ(j,i),S.EigVal(j+nband,i),S.occ(j+nband,i));
-        end
-        fprintf(fileID, "\n");
-    end
 end
 
-end
+
 
 for JJ_a = 1:S.n_atm % loop over all the atoms
 	% Atom position of atom JJ_a
@@ -517,7 +469,56 @@ end
 atomMag = atomMag * S.dV;
 end
 
-
+%%%%%%%%%%%%%%%Print to Eigen file%%%%%%%%%%%%%%%%%%
+function S = print_eig_file(S)
+if S.spin_typ == 0
+    EigenFilename = S.EigenFilename;
+	fileID = fopen(EigenFilename,'w');
+	if (fileID == -1) 
+		error('\n Cannot open file "%s"\n',EigenFilename);
+    end
+    fprintf(fileID, "Final eigenvalues (Ha) and occupation numbers\n");
+    fprintf(fileID, "\n");
+    [numkpt,~] = size(S.kptgrid);
+    for i=1:numkpt
+        if S.BandStr_Plot_Flag == 1
+            fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.outkpt(i,1),S.outkpt(i,2),S.outkpt(i,3));
+        elseif S.BandStr_Plot_Flag == 0
+            fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.kptgrid(i,1),S.kptgrid(i,2),S.kptgrid(i,3));
+        end
+        fprintf(fileID, "n           eigval                          occ\n");
+        [nband,~] = size(S.EigVal);
+        for j=1:nband
+            fprintf(fileID,"%-7d%20.12E %18.12f\n",j,S.EigVal(j,i),S.occ(j,i));
+        end
+        fprintf(fileID, "\n");
+    end
+else
+    EigenFilename = S.EigenFilename;
+	fileID = fopen(EigenFilename,'w');
+	if (fileID == -1) 
+		error('\n Cannot open file "%s"\n',EigenFilename);
+    end
+    fprintf(fileID, "Final eigenvalues (Ha) and occupation numbers\n");
+    fprintf(fileID, "\n");
+    [numkpt,~] = size(S.kptgrid);
+    for i=1:numkpt
+        if S.BandStr_Plot_Flag == 1
+            fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.outkpt(i,1),S.outkpt(i,2),S.outkpt(i,3));
+        elseif S.BandStr_Plot_Flag == 0
+            fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.kptgrid(i,1),S.kptgrid(i,2),S.kptgrid(i,3));
+        end
+        fprintf(fileID, "            Spin-up                                                      Spin-down\n");
+        fprintf(fileID, "n           eigval                          occ                          eigval                      occ\n");
+        [nband,~] = size(S.EigVal);
+        nband = floor(nband/2);
+        for j=1:nband
+            fprintf(fileID,"%-7d%20.12E %18.12f %20.12E %18.12f\n",j,S.EigVal(j,i),S.occ(j,i),S.EigVal(j+nband,i),S.occ(j+nband,i));
+        end
+        fprintf(fileID, "\n");
+    end
+end
+end
 
 %%%%%%%%%%%%%%%Print to density file%%%%%%%%%%%%%%%%%%
 function S = print_dens_file(S)
