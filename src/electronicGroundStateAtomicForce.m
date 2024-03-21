@@ -67,12 +67,15 @@ if S.BandStr_Plot_Flag == 1
     S.rhoTrigger = 10;
     S.MAXIT_SCF = 1;
 end
+
+
+[pfile, ~, ~] = fileparts(S.filename);
 if S.spin_typ == 0 && S.BandStr_Plot_Flag == 1
-    S = read_dens(S,1);
+    S.rho(:,1) = read_dens(fullfile(pfile,S.indensfname));
 elseif S.spin_typ > 0 && S.BandStr_Plot_Flag == 1
-    S = read_dens(S,1);
-    S = read_dens(S,2);
-    S = read_dens(S,3);
+    S.rho(:,1) = read_dens(fullfile(pfile,S.indensfname));
+    S.rho(:,2) = read_dens(fullfile(pfile,S.inupdensfname));
+    S.rho(:,3) = read_dens(fullfile(pfile,S.indowndensfname));
 end
 S = scf(S);
 	
@@ -628,24 +631,11 @@ else
 end
 end
 
-function S = read_dens(S,spintp)
-    [pfile, ~, ~] = fileparts(S.filename);
-    pfile = strcat(pfile,'\');
-    if spintp == 1
-        
-        fname = S.indensfname;
-        fname = strcat(pfile,fname);
-    elseif spintp == 2
-        fname = S.inupdensfname;
-        fname = strcat(pfile,fname);
-    elseif spintp == 3
-        fname = S.indowndensfname;
-        fname = strcat(pfile,fname);
-    end
-    disp(fname);
-    fid = fopen(fname,'r') ;
+function rho = read_dens(fname)
+	disp(fname)
+	fid = fopen(fname, 'r');
 
-    assert(fid~=-1,'Error: Cannot open dens file %s',fname);
+	assert(fid~=-1,'Error: Cannot open dens file %s',fname);
 
     textscan(fid,'%s',1,'delimiter','\n') ;
     textscan(fid,'%s',1,'delimiter','\n') ;
