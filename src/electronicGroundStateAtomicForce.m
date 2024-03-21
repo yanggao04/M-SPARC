@@ -672,16 +672,15 @@ function rho = read_dens(fname)
         textscan(fid,'%s',1,'delimiter','\n') ;
     end
 
+    nd = sizex * sizey * sizez
+    rho = zeros(nd,1)
+
     for i = 0:sizex-1
         for j = 0:sizey-1
             for k = 0:sizez-1
-                S.rho(i + j*sizex + k*sizex*sizey+1 , spintp) = fscanf(fid,'%f',1);
+                rho(i + j*sizex + k*sizex*sizey+1 , 1) = fscanf(fid,'%f',1);
             end
         end
 
     end
-
-    
-
-
 end
