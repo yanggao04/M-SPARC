@@ -68,7 +68,6 @@ if S.BandStr_Plot_Flag == 1
     S.MAXIT_SCF = 1;
 end
 
-
 [pfile, ~, ~] = fileparts(S.filename);
 if S.spin_typ == 0 && S.BandStr_Plot_Flag == 1
     S.rho(:,1) = read_dens(fullfile(pfile,S.indensfname));
@@ -170,8 +169,6 @@ end
 if(S.PrintElecDensFlag == 1)
     S = print_dens_file(S);
 end
-
-
 
 if(S.PrintEigenFlag == 1)
     S = print_eig_file(S);
@@ -378,8 +375,6 @@ elseif S.spin_typ == 2
     atomMag = zeros(S.n_atm,3);
 end
 
-
-
 for JJ_a = 1:S.n_atm % loop over all the atoms
 	% Atom position of atom JJ_a
 	x0 = S.Atoms(JJ_a,1);
@@ -472,51 +467,51 @@ end
 %%%%%%%%%%%%%%%Print to Eigen file%%%%%%%%%%%%%%%%%%
 function S = print_eig_file(S)
 if S.spin_typ == 0
-    EigenFilename = S.EigenFilename;
+	EigenFilename = S.EigenFilename;
 	fileID = fopen(EigenFilename,'w');
 	if (fileID == -1) 
 		error('\n Cannot open file "%s"\n',EigenFilename);
-    end
-    fprintf(fileID, "Final eigenvalues (Ha) and occupation numbers\n");
-    fprintf(fileID, "\n");
-    [numkpt,~] = size(S.kptgrid);
-    for i=1:numkpt
-        if S.BandStr_Plot_Flag == 1
-            fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.outkpt(i,1),S.outkpt(i,2),S.outkpt(i,3));
-        elseif S.BandStr_Plot_Flag == 0
-            fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.kptgrid(i,1),S.kptgrid(i,2),S.kptgrid(i,3));
-        end
-        fprintf(fileID, "n           eigval                          occ\n");
-        [nband,~] = size(S.EigVal);
-        for j=1:nband
-            fprintf(fileID,"%-7d%20.12E %18.12f\n",j,S.EigVal(j,i),S.occ(j,i));
-        end
-        fprintf(fileID, "\n");
-    end
+	end
+	fprintf(fileID, "Final eigenvalues (Ha) and occupation numbers\n");
+	fprintf(fileID, "\n");
+	[numkpt,~] = size(S.kptgrid);
+	for i=1:numkpt
+		if S.BandStr_Plot_Flag == 1
+			fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.outkpt(i,1),S.outkpt(i,2),S.outkpt(i,3));
+		elseif S.BandStr_Plot_Flag == 0
+			fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.kptgrid(i,1),S.kptgrid(i,2),S.kptgrid(i,3));
+		end
+		fprintf(fileID, "n           eigval                          occ\n");
+		[nband,~] = size(S.EigVal);
+		for j=1:nband
+			fprintf(fileID,"%-7d%20.12E %18.12f\n",j,S.EigVal(j,i),S.occ(j,i));
+		end
+		fprintf(fileID, "\n");
+	end
 else
-    EigenFilename = S.EigenFilename;
+	EigenFilename = S.EigenFilename;
 	fileID = fopen(EigenFilename,'w');
 	if (fileID == -1) 
 		error('\n Cannot open file "%s"\n',EigenFilename);
-    end
-    fprintf(fileID, "Final eigenvalues (Ha) and occupation numbers\n");
-    fprintf(fileID, "\n");
-    [numkpt,~] = size(S.kptgrid);
-    for i=1:numkpt
-        if S.BandStr_Plot_Flag == 1
-            fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.outkpt(i,1),S.outkpt(i,2),S.outkpt(i,3));
-        elseif S.BandStr_Plot_Flag == 0
-            fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.kptgrid(i,1),S.kptgrid(i,2),S.kptgrid(i,3));
-        end
-        fprintf(fileID, "            Spin-up                                                      Spin-down\n");
-        fprintf(fileID, "n           eigval                          occ                          eigval                      occ\n");
-        [nband,~] = size(S.EigVal);
-        nband = floor(nband/2);
-        for j=1:nband
-            fprintf(fileID,"%-7d%20.12E %18.12f %20.12E %18.12f\n",j,S.EigVal(j,i),S.occ(j,i),S.EigVal(j+nband,i),S.occ(j+nband,i));
-        end
-        fprintf(fileID, "\n");
-    end
+	end
+	fprintf(fileID, "Final eigenvalues (Ha) and occupation numbers\n");
+	fprintf(fileID, "\n");
+	[numkpt,~] = size(S.kptgrid);
+	for i=1:numkpt
+		if S.BandStr_Plot_Flag == 1
+			fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.outkpt(i,1),S.outkpt(i,2),S.outkpt(i,3));
+		elseif S.BandStr_Plot_Flag == 0
+			fprintf(fileID, "kred #%d = (%f,%f,%f)\n",i,S.kptgrid(i,1),S.kptgrid(i,2),S.kptgrid(i,3));
+		end
+		fprintf(fileID, "            Spin-up                                                      Spin-down\n");
+		fprintf(fileID, "n           eigval                          occ                          eigval                      occ\n");
+		[nband,~] = size(S.EigVal);
+		nband = floor(nband/2);
+		for j=1:nband
+			fprintf(fileID,"%-7d%20.12E %18.12f %20.12E %18.12f\n",j,S.EigVal(j,i),S.occ(j,i),S.EigVal(j+nband,i),S.occ(j+nband,i));
+		end
+		fprintf(fileID, "\n");
+	end
 end
 end
 
@@ -524,111 +519,110 @@ end
 function S = print_dens_file(S)
 if S.spin_typ == 0
 
-    densfname = S.densfname;
+	densfname = S.densfname;
 	fileID = fopen(densfname,'w');
 	if (fileID == -1) 
 		error('\n Cannot open file "%s"\n',densfname);
-    end
-    bcondition = ["P","D"];
-    current_time = datetime('now');
-    formatted_time = datestr(current_time, 'ddd mmm dd HH:MM:SS yyyy');
-    time_str = ['Print time: ', formatted_time];
+	end
+	bcondition = ["P","D"];
+	current_time = datetime('now');
+	formatted_time = datestr(current_time, 'ddd mmm dd HH:MM:SS yyyy');
+	time_str = ['Print time: ', formatted_time];
 	fprintf(fileID, "Electron density in Cube format printed by M-SPARC (%s)\n",time_str);
-    fprintf(fileID, "Cell length: %.6f %.6f %.6f, boundary condition: %s %s %s.\n", S.latvec_scale_x,S.latvec_scale_y,S.latvec_scale_z,bcondition(S.BCx + 1), bcondition(S.BCy + 1),bcondition(S.BCz + 1) );
-    fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.n_atm, 0.0, 0.0, 0.0);
-    fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.Nx, S.lat_uvec(1,1)*S.dx, S.lat_uvec(1,2)*S.dx, S.lat_uvec(1,3)*S.dx);
-    fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.Ny, S.lat_uvec(2,1)*S.dy, S.lat_uvec(2,2)*S.dy, S.lat_uvec(2,3)*S.dy);
-    fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.Nz, S.lat_uvec(3,1)*S.dz, S.lat_uvec(3,2)*S.dz, S.lat_uvec(3,3)*S.dz);
-    %atmcount = 0;
-    for ityp = 1:S.n_typ
-        for icord = 1:S.Atm(ityp).n_atm_typ
-            x0 = S.Atm(ityp).coords(icord,1);
-            y0 = S.Atm(ityp).coords(icord,2);
-            z0 = S.Atm(ityp).coords(icord,3);
-            if S.cell_typ ~= 0
-                redcord = coordinateTransformation(S, [x0,y0,z0], 'noncart2cart_dis'); 
-                x0 = redcord(1);
-                y0 = redcord(2);
-                z0 = redcord(3);
-            end
-            fprintf(fileID, "%5d %5d %11.6f  %11.6f  %11.6f\n", floor(str2double(S.Atm(ityp).Zatom)), floor(S.Atm(ityp).Z), x0, y0, z0);
-            
-        end
-    end
-    
-    for i = 0:S.Nx-1
-        for j = 0:S.Ny-1
-            for k = 0:S.Nz-1
-                fprintf(fileID, "  %.10E", S.rho(i + j*S.Nx + k*S.Nx*S.Ny+1) );
-                if mod(k,6) == 5
-                    fprintf(fileID, "\n");
-                end
-            end
-            fprintf(fileID, "\n");
-        end
-    end
-    
+	fprintf(fileID, "Cell length: %.6f %.6f %.6f, boundary condition: %s %s %s.\n", S.latvec_scale_x,S.latvec_scale_y,S.latvec_scale_z,bcondition(S.BCx + 1), bcondition(S.BCy + 1),bcondition(S.BCz + 1) );
+	fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.n_atm, 0.0, 0.0, 0.0);
+	fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.Nx, S.lat_uvec(1,1)*S.dx, S.lat_uvec(1,2)*S.dx, S.lat_uvec(1,3)*S.dx);
+	fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.Ny, S.lat_uvec(2,1)*S.dy, S.lat_uvec(2,2)*S.dy, S.lat_uvec(2,3)*S.dy);
+	fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.Nz, S.lat_uvec(3,1)*S.dz, S.lat_uvec(3,2)*S.dz, S.lat_uvec(3,3)*S.dz);
+	%atmcount = 0;
+	for ityp = 1:S.n_typ
+		for icord = 1:S.Atm(ityp).n_atm_typ
+			x0 = S.Atm(ityp).coords(icord,1);
+			y0 = S.Atm(ityp).coords(icord,2);
+			z0 = S.Atm(ityp).coords(icord,3);
+			if S.cell_typ ~= 0
+				redcord = coordinateTransformation(S, [x0,y0,z0], 'noncart2cart_dis'); 
+				x0 = redcord(1);
+				y0 = redcord(2);
+				z0 = redcord(3);
+			end
+			fprintf(fileID, "%5d %5d %11.6f  %11.6f  %11.6f\n", floor(str2double(S.Atm(ityp).Zatom)), floor(S.Atm(ityp).Z), x0, y0, z0);	
+		end
+	end
+	
+	for i = 0:S.Nx-1
+		for j = 0:S.Ny-1
+			for k = 0:S.Nz-1
+				fprintf(fileID, "  %.10E", S.rho(i + j*S.Nx + k*S.Nx*S.Ny+1) );
+				if mod(k,6) == 5
+					fprintf(fileID, "\n");
+				end
+			end
+			fprintf(fileID, "\n");
+		end
+	end
+	
 	fclose(fileID);
 
 else
-    for spintp = 1:3
-        tag = ['Total spin','Up spin','Down spin'];
-        if spintp == 1
-            densfname = S.densfname;
-            outtag = tag(1:10);
-        elseif spintp == 2
-            densfname = S.updensfname;
-            outtag = tag(11:17);
-        else
-            densfname = S.downdensfname;
-            outtag = tag(18:26);
-        end
-        fileID = fopen(densfname,'w');
-    	if (fileID == -1)
-    		error('\n Cannot open file "%s"\n',densfname);
-        end
-        bcondition = ["P","D"];
-        current_time = datetime('now');
-        formatted_time = datestr(current_time, 'ddd mmm dd HH:MM:SS yyyy');
-        time_str = ['Print time: ', formatted_time];
-    	
-        fprintf(fileID, "%s electron density in Cube format printed by M-SPARC (%s)\n",outtag,time_str);
-        fprintf(fileID, "Cell length: %.6f %.6f %.6f, boundary condition: %s %s %s.\n", S.latvec_scale_x,S.latvec_scale_y,S.latvec_scale_z,bcondition(S.BCx + 1), bcondition(S.BCy + 1),bcondition(S.BCz + 1) );
-        fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.n_atm, 0.0, 0.0, 0.0);
-        fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.Nx, S.lat_uvec(1,1)*S.dx, S.lat_uvec(1,2)*S.dx, S.lat_uvec(1,3)*S.dx);
-        fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.Ny, S.lat_uvec(2,1)*S.dy, S.lat_uvec(2,2)*S.dy, S.lat_uvec(2,3)*S.dy);
-        fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.Nz, S.lat_uvec(3,1)*S.dz, S.lat_uvec(3,2)*S.dz, S.lat_uvec(3,3)*S.dz);
-        %atmcount = 0;
-        for ityp = 1:S.n_typ
-            for icord = 1:S.Atm(ityp).n_atm_typ
-                x0 = S.Atm(ityp).coords(icord,1);
-                y0 = S.Atm(ityp).coords(icord,2);
-                z0 = S.Atm(ityp).coords(icord,3);
-                if S.cell_typ ~= 0
-                    redcord = coordinateTransformation(S, [x0,y0,z0], 'noncart2cart_dis');
-                    x0 = redcord(1);
-                    y0 = redcord(2);
-                    z0 = redcord(3);
-                end
-                fprintf(fileID, "%5d %5d %11.6f  %11.6f  %11.6f\n", floor(str2double(S.Atm(ityp).Zatom)), floor(S.Atm(ityp).Z), x0, y0, z0);
+	for spintp = 1:3
+		tag = ['Total spin','Up spin','Down spin'];
+		if spintp == 1
+			densfname = S.densfname;
+			outtag = tag(1:10);
+		elseif spintp == 2
+			densfname = S.updensfname;
+			outtag = tag(11:17);
+		else
+			densfname = S.downdensfname;
+			outtag = tag(18:26);
+		end
+		fileID = fopen(densfname,'w');
+		if (fileID == -1)
+			error('\n Cannot open file "%s"\n',densfname);
+		end
+		bcondition = ["P","D"];
+		current_time = datetime('now');
+		formatted_time = datestr(current_time, 'ddd mmm dd HH:MM:SS yyyy');
+		time_str = ['Print time: ', formatted_time];
+		
+		fprintf(fileID, "%s electron density in Cube format printed by M-SPARC (%s)\n",outtag,time_str);
+		fprintf(fileID, "Cell length: %.6f %.6f %.6f, boundary condition: %s %s %s.\n", S.latvec_scale_x,S.latvec_scale_y,S.latvec_scale_z,bcondition(S.BCx + 1), bcondition(S.BCy + 1),bcondition(S.BCz + 1) );
+		fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.n_atm, 0.0, 0.0, 0.0);
+		fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.Nx, S.lat_uvec(1,1)*S.dx, S.lat_uvec(1,2)*S.dx, S.lat_uvec(1,3)*S.dx);
+		fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.Ny, S.lat_uvec(2,1)*S.dy, S.lat_uvec(2,2)*S.dy, S.lat_uvec(2,3)*S.dy);
+		fprintf(fileID, "%5d %11.6f  %11.6f  %11.6f\n", S.Nz, S.lat_uvec(3,1)*S.dz, S.lat_uvec(3,2)*S.dz, S.lat_uvec(3,3)*S.dz);
+		%atmcount = 0;
+		for ityp = 1:S.n_typ
+			for icord = 1:S.Atm(ityp).n_atm_typ
+				x0 = S.Atm(ityp).coords(icord,1);
+				y0 = S.Atm(ityp).coords(icord,2);
+				z0 = S.Atm(ityp).coords(icord,3);
+				if S.cell_typ ~= 0
+					redcord = coordinateTransformation(S, [x0,y0,z0], 'noncart2cart_dis');
+					x0 = redcord(1);
+					y0 = redcord(2);
+					z0 = redcord(3);
+				end
+				fprintf(fileID, "%5d %5d %11.6f  %11.6f  %11.6f\n", floor(str2double(S.Atm(ityp).Zatom)), floor(S.Atm(ityp).Z), x0, y0, z0);
 
-            end
-        end
+			end
+		end
 
-        for i = 0:S.Nx-1
-            for j = 0:S.Ny-1
-                for k = 0:S.Nz-1
-                    fprintf(fileID, "  %.10E", S.rho(i + j*S.Nx + k*S.Nx*S.Ny+1,spintp) );
-                    if mod(k,6) == 5
-                        fprintf(fileID, "\n");
-                    end
-                end
-                fprintf(fileID, "\n");
-            end
-        end
+		for i = 0:S.Nx-1
+			for j = 0:S.Ny-1
+				for k = 0:S.Nz-1
+					fprintf(fileID, "  %.10E", S.rho(i + j*S.Nx + k*S.Nx*S.Ny+1,spintp) );
+					if mod(k,6) == 5
+						fprintf(fileID, "\n");
+					end
+				end
+				fprintf(fileID, "\n");
+			end
+		end
 
-    	fclose(fileID);
-    end
+		fclose(fileID);
+	end
 end
 end
 
@@ -638,50 +632,33 @@ function rho = read_dens(fname)
 
 	assert(fid~=-1,'Error: Cannot open dens file %s',fname);
 
-    textscan(fid,'%s',1,'delimiter','\n') ;
-    textscan(fid,'%s',1,'delimiter','\n') ;
-    natom = fscanf(fid,'%d',1);
-%     disp('natom:');
-%     disp(natom);
-%     disp('\n');
-    textscan(fid,'%s',1,'delimiter','\n') ;
+	textscan(fid,'%s',1,'delimiter','\n') ;
+	textscan(fid,'%s',1,'delimiter','\n') ;
+	natom = fscanf(fid,'%d',1);
+	textscan(fid,'%s',1,'delimiter','\n') ;
 
+	sizex = fscanf(fid,'%d',1);
+	textscan(fid,'%s',1,'delimiter','\n') ;
 
-    sizex = fscanf(fid,'%d',1);
-%     disp('sizex:');
-%     disp(sizex);
-%     disp('\n');
-    textscan(fid,'%s',1,'delimiter','\n') ;
+	sizey = fscanf(fid,'%d',1);
+	textscan(fid,'%s',1,'delimiter','\n') ;
 
+	sizez = fscanf(fid,'%d',1);
+	textscan(fid,'%s',1,'delimiter','\n') ;
 
-    sizey = fscanf(fid,'%d',1);
-%     disp('sizey:');
-%     disp(sizey);
-%     disp('\n');
-    textscan(fid,'%s',1,'delimiter','\n') ;
+	for i = 1:natom
+		textscan(fid,'%s',1,'delimiter','\n') ;
+	end
 
+	nd = sizex * sizey * sizez
+	rho = zeros(nd,1)
 
-    sizez = fscanf(fid,'%d',1);
-%     disp('sizez:');
-%     disp(sizez);
-%     disp('\n');
-    textscan(fid,'%s',1,'delimiter','\n') ;
+	for i = 0:sizex-1
+		for j = 0:sizey-1
+			for k = 0:sizez-1
+				rho(i + j*sizex + k*sizex*sizey+1 , 1) = fscanf(fid,'%f',1);
+			end
+		end
+	end
 
-
-
-    for i = 1:natom
-        textscan(fid,'%s',1,'delimiter','\n') ;
-    end
-
-    nd = sizex * sizey * sizez
-    rho = zeros(nd,1)
-
-    for i = 0:sizex-1
-        for j = 0:sizey-1
-            for k = 0:sizez-1
-                rho(i + j*sizex + k*sizex*sizey+1 , 1) = fscanf(fid,'%f',1);
-            end
-        end
-
-    end
 end

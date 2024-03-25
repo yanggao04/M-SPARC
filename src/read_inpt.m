@@ -659,46 +659,45 @@ while(~feof(fid1))
 		C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
 		S.hyb_range_pbe = C_param{1};
 		textscan(fid1,'%s',1,'delimiter','\n','MultipleDelimsAsOne',0); % skip current line
-    elseif (strcmp(str,'BAND_STRUC_PLOT:'))
-        C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
+    elseif (strcmp(str,'BAND_STRUCTURE:'))
+		C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
 		S.BandStr_Plot_Flag = C_param{1};
 		textscan(fid1,'%s',1,'delimiter','\n','MultipleDelimsAsOne',0); % skip current line
     elseif (strcmp(str,'KPT_PER_LINE:'))
-        C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
+		C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
 		S.kpt_per_line = C_param{1};
 		textscan(fid1,'%s',1,'delimiter','\n','MultipleDelimsAsOne',0); % skip current line
-    elseif (strcmp(str,'KPT_NUMLINES:'))
-        C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
+    elseif (strcmp(str,'KPT_PATHS:'))
+		C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
 		S.kpt_line_num = C_param{1};
 		textscan(fid1,'%s',1,'delimiter','\n','MultipleDelimsAsOne',0); % skip current line
-        S.kred = zeros(S.kpt_line_num*2,3);
-        for i = 1:S.kpt_line_num*2
-
-            C_param = textscan(fid1,'%f %f %f',1,'delimiter',' ','MultipleDelimsAsOne',1);
-		    textscan(fid1,'%s',1,'delimiter','\n','MultipleDelimsAsOne',0); % skip current line
-		    S.kred(i,:) = cell2mat(C_param);
-        end
-    elseif (strcmp(str,'DENS_FILE_NAME:'))
-        % C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
+		S.kred = zeros(S.kpt_line_num*2,3);
+		for i = 1:S.kpt_line_num*2
+			C_param = textscan(fid1,'%f %f %f',1,'delimiter',' ','MultipleDelimsAsOne',1);
+			textscan(fid1,'%s',1,'delimiter','\n','MultipleDelimsAsOne',0); % skip current line
+			S.kred(i,:) = cell2mat(C_param);
+		end
+    elseif (strcmp(str,'INPUT_DENS_FILE:'))
+		% C_param = textscan(fid1,'%f',1,'delimiter',' ','MultipleDelimsAsOne',1);
 		% S.dens_file_num = C_param{1};
 		
 		% not necessarily entering a number indicating num of files passed
 		inputFnames = [];
 		[nInputs, inputFnames] = readStringInputsFromFile(fid1, 3);
-        S.dens_file_num = nInputs;
+		S.dens_file_num = nInputs;
 
-        if S.dens_file_num == 3
-            S.indensfname = inputFnames(1);
-            S.inupdensfname = inputFnames(2);
-            S.indowndensfname = inputFnames(3);
+		if S.dens_file_num == 3
+			S.indensfname = inputFnames(1);
+			S.inupdensfname = inputFnames(2);
+			S.indowndensfname = inputFnames(3);
 
-        elseif S.dens_file_num == 1
-            S.indensfname = inputFnames(1);
-        else
-        	error('\n[FATAL] Density file names not provided properly! (Provide 1 file w/o spin or 3 files with spin)\n')
-        end
-        inputFnames
-    else 
+		elseif S.dens_file_num == 1
+			S.indensfname = inputFnames(1);
+		else
+			error('\n[FATAL] Density file names not provided properly! (Provide 1 file w/o spin or 3 files with spin)\n')
+		end
+		inputFnames
+	else 
 		error('\nCannot recognize input variable identifier: "%s"\n',str);
 		%fprintf('\nCannot recognize input flag in .inpt file: "%s"\n',str);
 	end
@@ -766,9 +765,6 @@ disp(S.BandStr_Plot_Flag);
 
 end
 
-
-
-
 function msparc_neglect_warning(str)
 	fprintf('Neglecting option "%s", which is not supported in M-SPARC\n',str);
 end
@@ -785,16 +781,16 @@ function [inputArgc,inputArgv] = readStringInputsFromLine(line_input, max_nstr)
 	remain = line_input;
 
 	while (strlength(remain) ~= 0)
-        [token,remain] = strtok(remain);
-        if strlength(token) == 0
-            break;
-        end
+		[token,remain] = strtok(remain);
+		if strlength(token) == 0
+			break;
+		end
 		if token(1) == '#'
 			break;
 		end
 		if inputArgc >= max_nstr
 			fprintf('\nError: Exceeded the maximum number of inputs (%d).\n', max_nstr);
-            inputArgc = -1
+			inputArgc = -1
 			return;
 		end
 
@@ -803,19 +799,15 @@ function [inputArgc,inputArgv] = readStringInputsFromLine(line_input, max_nstr)
 	end
 	return;
 end
-
-   
+ 
 
 function [inputArgc, inputArgv] = readStringInputsFromFile(input_fp, max_nstr)
 	line_input = fgets(input_fp);
 	if line_input == -1
 		fprintf('\nError reading line from file.\n');
-        inputArgc = -1;
-        return
+		inputArgc = -1;
+		return
 	end
 	[inputArgc, inputArgv] = readStringInputsFromLine(line_input, max_nstr);
-    return
+	return
 end
-
-
-

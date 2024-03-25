@@ -37,8 +37,6 @@ fclose(fileID);
 % Electrostatic potential
 S = poissonSolve(S, S.poisson_tol, 0);
 
-
-
 % Exchange-correlation potential
 S.countPotential = -1;
 S = exchangeCorrelationPotential(S);

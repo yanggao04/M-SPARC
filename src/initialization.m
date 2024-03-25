@@ -346,7 +346,7 @@ end
 if S.BandStr_Plot_Flag == 0
     S = Generate_kpts(S);
 elseif S.BandStr_Plot_Flag == 1
-   S = Generate_band(S);
+    S = Generate_band(S);
 end
 % check spin-orbit coupling
 for ityp = 1:S.n_typ
@@ -1018,9 +1018,6 @@ function S = Generate_band(S)
     end
   
 end
-
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
