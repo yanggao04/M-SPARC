@@ -696,7 +696,6 @@ while(~feof(fid1))
 		else
 			error('\n[FATAL] Density file names not provided properly! (Provide 1 file w/o spin or 3 files with spin)\n')
 		end
-		inputFnames
 	else 
 		error('\nCannot recognize input variable identifier: "%s"\n',str);
 		%fprintf('\nCannot recognize input flag in .inpt file: "%s"\n',str);
@@ -790,7 +789,7 @@ function [inputArgc,inputArgv] = readStringInputsFromLine(line_input, max_nstr)
 		end
 		if inputArgc >= max_nstr
 			fprintf('\nError: Exceeded the maximum number of inputs (%d).\n', max_nstr);
-			inputArgc = -1
+			inputArgc = -1;
 			return;
 		end
 

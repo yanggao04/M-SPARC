@@ -63,10 +63,10 @@ S = initElectrondensity(S);
 S.Atom = calculate_nloc_projector(S);
 
 % Self-consistent Field (SCF) method
-if S.BandStr_Plot_Flag == 1
-    S.rhoTrigger = 10;
-    S.MAXIT_SCF = 1;
-end
+% if S.BandStr_Plot_Flag == 1
+%     S.rhoTrigger = 10;
+%     S.MAXIT_SCF = 1;
+% end
 
 [pfile, ~, ~] = fileparts(S.filename);
 if S.spin_typ == 0 && S.BandStr_Plot_Flag == 1
@@ -627,7 +627,7 @@ end
 end
 
 function rho = read_dens(fname)
-	disp(fname)
+	% disp(fname)
 	fid = fopen(fname, 'r');
 
 	assert(fid~=-1,'Error: Cannot open dens file %s',fname);
@@ -650,8 +650,8 @@ function rho = read_dens(fname)
 		textscan(fid,'%s',1,'delimiter','\n') ;
 	end
 
-	nd = sizex * sizey * sizez
-	rho = zeros(nd,1)
+	nd = sizex * sizey * sizez;
+	rho = zeros(nd,1);
 
 	for i = 0:sizex-1
 		for j = 0:sizey-1

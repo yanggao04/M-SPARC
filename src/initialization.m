@@ -647,6 +647,13 @@ if S.npl < 0
 	fprintf('## Based on the mesh size, npl is set to: %d\n',S.npl);
 end
 
+if S.BandStr_Plot_Flag == 1
+	S.MAXIT_SCF = 1;
+	S.MINIT_SCF = 1;
+	S.PrintElecDensFlag = 0;
+	S.PrintEigenFlag = 1;
+end
+
 % Nev
 if S.Nev < 0
 	fprintf('## Number of states not provided, finding Nev ...\n');
@@ -825,6 +832,10 @@ if S.rhoTrigger < 0
         S.rhoTrigger = 6;
     else
         S.rhoTrigger = 4;
+    end
+
+    if S.BandStr_Plot_Flag == 1
+    	S.rhoTrigger = 10;
     end
 end
 
